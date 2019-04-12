@@ -2,8 +2,8 @@ import os
 from collections import defaultdict
 import json
 import math
-# import kenlm
-
+import kenlm
+import utility
 
 class NoisinessMeasurer:
     def __init__(self, train_set, test_set):
@@ -16,6 +16,7 @@ class NoisinessMeasurer:
         self.test_alphabet = self.make_alphabet(test_set)
         self.oovw = self.test_vocab - self.train_vocab #Ensemble des mots qu ne sont pas dans le vocabulaires de train
         self.KLD = self.KL_divergence()
+
 
     def make_vocab(self, set_):
         rep = set()
@@ -103,9 +104,17 @@ class NoisinessMeasurer:
         len_oovw = len(self.oovw)
         return len_oovw/len(self.train_vocab)*100
 
-    # def perplexity(self):
-    #     model = kenlm.Model("corpus/test/fr.foot.test.json")
-    #     print(model.score('this is a sentence .', bos = True, eos = True))
+    def perplexity(self, filelist):
+        str_file = "_".join(filelist)
+        model = kenlm.Model("arpa/{}.arpa".format(str_file))
+        corpus = utility.loadCorpus("test", filelist)
+        listcorpus = utility.set_to_string_list(corpus)
+        corpus_str =""
+        for sent in listcorpus:
+            corpus_str+=("{} ".format(sent))
+        corpus_str = corpus_str.rstrip()
+
+        return model.perplexity(corpus_str)
 
 
 

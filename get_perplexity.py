@@ -3,12 +3,9 @@ import sys
 import utility
 
 def perplexity(mod, seq):
-    print(model.perplexity(seq))
+    
 
 
-
-
-arpaFile = sys.argv[1]
 model = kenlm.Model("arpa/{}.arpa".format(arpaFile))
 corpus = utility.loadCorpus("test", [arpaFile])
 listcorpus = utility.set_to_string_list(corpus)
