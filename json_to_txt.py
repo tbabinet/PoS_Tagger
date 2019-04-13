@@ -12,6 +12,9 @@ import utility
 import sys
 from itertools import combinations
 
+"""
+crée l'ensemble des fichiers nécessaires à la création des fichiers .arpa
+"""
 
 test_files = ["foot","ftb", "gsd","natdis", "partut", "pud", "sequoia" ,"spoken"]
 

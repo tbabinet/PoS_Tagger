@@ -1,8 +1,10 @@
-# -*- coding: utf-8 -*-
+
 """
 Created on Mon Apr  8 18:21:39 2019
 
 @author: tbabi
+
+entraine le perceptron passé en paramètre, selon le nombre d'epochs, le train set, le vocabulaire, et le dictionnaire de bigrammes
 """
 
 import json
@@ -18,9 +20,6 @@ import _pickle as pickle
 import math
 import utility
 
-# train_files = ["ftb", "gsd", "partut", "pud", "sequoia" ,"spoken"]
-# dev_files = ["ftb", "gsd", "partut", "sequoia" ,"spoken"]
-# test_files = ["foot","ftb", "gsd","natdis", "partut", "pud", "sequoia" ,"spoken"]
 
 
 def train(p, max_epoch, train_set, vocab, bigrams):
@@ -52,39 +51,5 @@ def train(p, max_epoch, train_set, vocab, bigrams):
     print("#######################")
     return precisions
 
-# ########TRAIN SET###########
-# traindir = [train_files[0]]
-# train_set = utility.loadCorpus("train", traindir)
-# ###########################################
-# ###########################################
-# lab_set = set()
-# for _, labels in train_set:
-#     for label in labels:
-#         lab_set.add(label)     
-# lab_set = list(lab_set)
 
-
-
-# train_vocab = utility.make_vocab(train_set)
-# sorted_train_vocab = utility.sorted_vocab(train_vocab)
-# best_500 = utility.best_x_in_vocab(sorted_train_vocab, 500)
-
-# train_bigrams = utility.w_bigrams_dict(train_set)
-
-# str_=""
-# for filename in traindir:
-#     str_+="{}-".format(filename)
-# str_=str_[:len(str_)-1]
-
-# filename = "perceptron_with_train_sets_{}.pkl".format(str_)
-
-
-
-# p = Perceptron(lab_set)
-# train(p, 1, best_500, train_bigrams)
-
-# p.average_weights()
-
-# with open(filename, "wb") as ifile:
-#     pickle.dump(p, ifile)
 

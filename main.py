@@ -14,11 +14,15 @@ import test_script
 import train_script
 import csv
 
+"""
+train de toutes les combinaisons possibles de perceptron, et tests desdits percepetrons sur tous les test sets possibles
+"""
+
 train_files = ["ftb", "gsd", "partut", "pud", "sequoia" ,"spoken"]
 test_files = ["foot","ftb", "gsd","natdis", "partut", "pud", "sequoia" ,"spoken"]
 
-for l in range(len(train_files)):
-        for trainlist in combinations(train_files, l+1):
+for l in range(len(train_files)-4):
+        for trainlist in combinations(train_files, l+4):
                 print("train list : ",trainlist)
                 trainlist = list(trainlist)
                 ########TRAIN SET###########
@@ -42,7 +46,6 @@ for l in range(len(train_files)):
                 for i in range(len(test_files)):
                         for testlist in combinations(test_files, i+1):
                                 
-                                
                                 print("test list : ",testlist)
                                 testlist = list(testlist)
                                 ########TEST SET#########
@@ -51,13 +54,13 @@ for l in range(len(train_files)):
                                 nm = NoisinessMeasurer(train_set, test_set)
                                 oovw_list = nm.oovw
                                 KLD = nm.KLD
-                                perplexity = nm.perplexity(testlist)
+                                #perplexity = nm.perplexity(testlist)
                                 ambigous_w_list = utility.ambiguous_words(train_set)
 
                                 testcorpus="_".join(testlist)
                                 
                                 precision_globale, precision_oov, precision_ambiguous = test_script.precision(p,oovw_list, ambigous_w_list, test_set, best_500, train_bigrams)
-                                row = [precision_globale, precision_oov, precision_ambiguous, nm.oov_percentage(), nm.KLD, perplexity]
+                                row = [precision_globale, precision_oov, precision_ambiguous, nm.oov_percentage(), nm.KLD]
                                 print(len(train_precisions))
                                 for precision in train_precisions[::-1]:
                                         row.insert(0, precision)
@@ -67,7 +70,7 @@ for l in range(len(train_files)):
                                 row_rounded.insert(0, testcorpus)
                                 row_rounded.insert(0, traincorpus)
                                 print(row_rounded)
-                                with open('results.csv', 'a') as datafile:
+                                with open('results_tour.csv', 'a') as datafile:
                                         writer = csv.writer(datafile)
                                         writer.writerow(row_rounded)
                                 

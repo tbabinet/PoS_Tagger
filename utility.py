@@ -9,6 +9,10 @@ import operator
 import _pickle as pickle
 import math
 
+
+"""
+renvoie l'alphabet correspondant au set passé en paramètre
+"""
 def make_alphabet(set_):
     rep = dict()
     for sent, _ in set_:
@@ -19,7 +23,12 @@ def make_alphabet(set_):
                 else:
                     rep[c] = 1
     return rep
-    
+
+
+"""
+renvoie le vocabulaire correspondant au set passé en paramètre
+"""
+
 def make_vocab(set_):
     rep = dict()
     for sent, _ in set_:
@@ -30,6 +39,11 @@ def make_vocab(set_):
                 rep[w]=1
     return rep
 
+
+"""
+renvoie le dictionnaire de bigrammes correspondant au set passé en paramètre
+chaque clé correspond à un bigram, et la valeur attachée est le nombre d'occurences de ce bigram
+"""
 
 def w_bigrams_dict(set_):
     rep = defaultdict(int)
@@ -42,6 +56,12 @@ def w_bigrams_dict(set_):
             else:
                 rep[bigram]=1
     return rep
+
+"""
+renvoie le vecteur de features correspondant au mot passé en paramètre,
+vecteur calculé à l'aide de la phrase, le vocabulaire (supposé être ici composé des N mots les plus fréquents, en accord avec les features décrites en [4])
+ainsi qu'un dictionnaire de bigrammes
+"""
 
 def sparse_representation(word, sent, vocab, bigram_dict):
     sparse_rep = dict()
@@ -101,6 +121,11 @@ def sparse_representation(word, sent, vocab, bigram_dict):
 
     return sparse_rep
 
+"""
+renvoie le corpus de fichier correspondant au tableau passé en 2nd paramètre (ex: ["foot", "gsd"])
+corpusName peux avoir les valeurs suivantes : "test", "train", "dev"
+"""
+
 def loadCorpus(corpusName, files):
     set_list = list() 
     for filename in files:
@@ -111,9 +136,15 @@ def loadCorpus(corpusName, files):
         set_+=ts
     return set_
 
+"""
+renvoie le vocabulaire trié par ordre décroissant de fréquence des mots
+"""
 def sorted_vocab(vocab):
     return sorted(vocab.items(), key=operator.itemgetter(1), reverse=True)
 
+"""
+renvoie les x mots les plus fréquents du vocabulaire
+"""
 def best_x_in_vocab(vocab, x):
     t_list = [w for w in map(list,zip(vocab[:x]))]
     best_x= [w[0] for w in t_list]
@@ -121,6 +152,9 @@ def best_x_in_vocab(vocab, x):
 
     return best_x
 
+"""
+renvoie la liste des mots ambigus du set passé en paramètre
+"""
 def ambiguous_words(set_):
     w_lbl_dict = defaultdict(list)
     ambigous_w_list = list()
@@ -135,6 +169,9 @@ def ambiguous_words(set_):
             
     return ambigous_w_list
 
+"""
+renvoie une liste de string composée de la concaténation des mots de chaque liste composant le set
+"""
 def set_to_string_list(set_):
     rep = list()
     for sent, _ in set_:

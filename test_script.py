@@ -12,6 +12,10 @@ import math
 import utility
 
 
+"""
+calcule les différentes précision du perceptron passé en paramètre
+"""
+
 def precision(p,oovw, ambiguous_w, test_set, vocab, bigram_dict):
     score_global = 0
     score_oovw=0

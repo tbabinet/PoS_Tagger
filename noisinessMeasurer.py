@@ -103,7 +103,9 @@ class NoisinessMeasurer:
     def oov_percentage(self):
         len_oovw = len(self.oovw)
         return len_oovw/len(self.train_vocab)*100
-
+    """
+    mesure la perplexité de l'ensemble de fichiers passé en paramètre
+    """
     def perplexity(self, filelist):
         str_file = "_".join(filelist)
         model = kenlm.Model("arpa/{}.arpa".format(str_file))

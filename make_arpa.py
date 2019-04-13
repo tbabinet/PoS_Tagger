@@ -1,7 +1,9 @@
 import subprocess
 from itertools import combinations
-#subprocess.check_output(['ls','-l']) #all that is technically needed...
 
+"""
+script créant l'ensembles des fichiers .arpa nécessaires au calcul de la perplxité
+"""
 
 test_files = ["foot","ftb", "gsd","natdis", "partut", "pud", "sequoia" ,"spoken"]
 
